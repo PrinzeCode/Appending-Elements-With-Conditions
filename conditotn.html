@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appending Elements with Conditions</title>
+    <style>
+        /* Some basic CSS styles */
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            margin: 10px;
+            float: left;
+        }
+        .delete-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Existing content -->
+        <div class="box">1 <button class="delete-button" onclick="deleteBox(this)">X</button></div>
+        <div class="box">2 <button class="delete-button" onclick="deleteBox(this)">X</button></div>
+        <div class="box">3 <button class="delete-button" onclick="deleteBox(this)">X</button></div>
+    </div>
+
+    <button onclick="appendBox()">Add Box</button>
+    
+
+    <script>
+        function appendBox() {
+            var container = document.getElementById("container");
+            var numberOfBoxes = container.children.length;
+
+            // Add a new box only if there are less than 5 boxes
+            if (numberOfBoxes < 5) {
+                var newBox = document.createElement("div");
+                newBox.className = "box";
+                newBox.textContent = numberOfBoxes + 1;
+                
+                var deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.textContent = "X";
+                deleteButton.onclick = function() {
+                    deleteBox(newBox);
+                };
+                newBox.appendChild(deleteButton);
+                
+                container.appendChild(newBox);
+            } else {
+                alert("You cannot add more than 5 boxes.");
+            }
+        }
+
+        function deleteBox(box) {
+            var container = document.getElementById("container");
+            container.removeChild(box.parentNode);
+        }
+        /*function appendBox() {
+            var container = document.getElementById("container");
+            var numberOfBoxes = container.children.length;
+
+            // Add a new box only if there are less than 5 boxes
+            if (numberOfBoxes < 5) {
+                var newBox = document.createElement("div");
+                newBox.className = "box";
+                newBox.textContent = "New";
+                container.appendChild(newBox);
+            } else {
+                alert("You cannot add more than 5 boxes.");
+            }
+        }*/
+    </script>
+</body>
+</html>
